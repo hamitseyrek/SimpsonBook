@@ -13,6 +13,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     
     //variables
     var simpsonArray = [Simpson]()
+    var selectedSimpson : Simpson?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,7 +40,18 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         simpsonArray.count
     }
-
+    // link to ShowImageVC
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedSimpson = simpsonArray[indexPath.row]
+        self.performSegue(withIdentifier: "toDetailsVCS", sender: nil)
+    }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "toDetailsVCS" {
+            let destinationVC = segue.destination as! DetailsVC
+            destinationVC.selectedSimpson = selectedSimpson
+        }
+    }
+    
 
 }
 
